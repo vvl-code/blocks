@@ -19,3 +19,19 @@
 .player-bar{height:48px;min-height:48px;display:flex;align-items:center;justify-content:space-between;background:#111d31;border-bottom:1px solid #314765;padding:0 12px}.player-bar strong{font-size:14px;letter-spacing:.13em}.back-button{color:var(--mint);background:transparent;border:0;font-size:12px;font-weight:900;letter-spacing:.1em;display:flex;align-items:center;gap:6px;min-width:90px;min-height:44px}.back-button span{font-size:32px;line-height:.8}.player-spacer{width:90px}
 #game-frame{display:block;flex:1;min-height:0;width:100%;border:0;background:#0a1121}
 @media(min-width:600px){.intro{padding-top:55px}.game-art{height:240px}}@media(prefers-reduced-motion:reduce){.game-card{transition:none}}
+
+/* Compact entries for new games; the installed Blocks PWA is unchanged. */
+.section-games{display:flex;flex-direction:column;gap:12px}.section-heading{margin-bottom:2px}
+.compact-card{display:flex;align-items:stretch;gap:14px;min-height:146px;padding:12px;text-align:left}
+.compact-art{flex:0 0 126px;min-width:0;min-height:120px;border-radius:13px;position:relative;display:grid;place-items:center;overflow:hidden}
+.gems-art{grid-template-columns:repeat(3,32px);grid-template-rows:repeat(3,32px);justify-content:center;align-content:center;gap:4px;background:radial-gradient(circle at 55% 40%,#314b85,#12233f 75%)}
+.gems-art span{display:grid;place-items:center;font-size:25px;text-shadow:0 2px 9px #07273c;filter:drop-shadow(0 0 4px #0008)}
+.gems-art span:nth-child(6n+1){color:#5af0e3}.gems-art span:nth-child(6n+2){color:#fba2a2}.gems-art span:nth-child(6n+3){color:#ad96ff}.gems-art span:nth-child(6n+4){color:#f7d66a}.gems-art span:nth-child(6n+5){color:#68e19e}.gems-art span:nth-child(6n){color:#79c6ff}
+.cards-art{background:radial-gradient(circle at 50% 40%,#276954,#10392f 80%);grid-template-columns:repeat(2,48px);grid-template-rows:repeat(2,52px);justify-content:center;align-content:center;gap:4px}
+.cards-art span{display:grid;place-items:center;background:#f0f4f5;border-radius:5px;border:1px solid #c2d4d1;box-shadow:0 3px 7px #07221f99;font-size:32px;font-weight:900;color:#1c3140;transform:rotate(-5deg)}
+.cards-art span:nth-child(2),.cards-art span:nth-child(4){color:#d34a55;transform:rotate(5deg)}
+.compact-info{min-width:0;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:2px 0}
+.compact-tag{color:#69e9ce;font-size:9px;letter-spacing:.14em;font-weight:800}.compact-title{font-size:clamp(17px,4.8vw,23px);font-weight:900;letter-spacing:.04em;line-height:1.1}
+.compact-description{color:var(--muted);font-size:11px;line-height:1.45}.compact-record{color:#a6bdd3;font-size:9px;font-weight:800;letter-spacing:.09em;margin-top:auto}
+.compact-play{display:flex;justify-content:space-between;align-items:center;align-self:stretch;padding-top:8px;border-top:1px solid #39516b;color:#66e9cd;font-size:10px;font-weight:900;letter-spacing:.1em}.compact-play span{font-size:20px}
+@media(max-width:355px){.compact-card{gap:10px}.compact-art{flex-basis:100px;min-height:115px}.gems-art{grid-template-columns:repeat(3,27px);grid-template-rows:repeat(3,27px)}.cards-art{grid-template-columns:repeat(2,39px);grid-template-rows:repeat(2,45px)}.compact-description{font-size:10px}}
