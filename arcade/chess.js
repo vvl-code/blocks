@@ -7,6 +7,7 @@ const color = p=>!p||p==='.'?0:p===p.toUpperCase()?1:-1;
 const pos = i=>'abcdefgh'[i&7]+(8-(i>>4));
 export const coordinate = pos;
 export const squareIndex = s=>(8-Number(s[1]))*16+'abcdefgh'.indexOf(s[0]);
+export const gridIndexToBoardIndex = index => {if(!Number.isInteger(index)||index<0||index>=64)throw new RangeError('Invalid board cell');return (index>>3)*16+(index&7);};
 export function parseFen(fen=INITIAL_FEN) {
   const parts=fen.trim().split(/\s+/);
   if(parts.length<4||!/^[wb]$/.test(parts[1]))throw new Error('Invalid FEN');
@@ -123,14 +124,14 @@ export function chooseAiMove(s){
   let best=-Infinity,choices=[];
   for(const move of moves){
     const next=applyMove(s,move);
-    let value=-s.t*score(next);
+    let value=s.t*score(next);
     const replies=legalMoves(next);
     if(!replies.length)value=inCheck(next)?1e8:0;
     else{
       // Two half-move search, intentionally light for mobile CPUs.
       let replyWorst=Infinity;
       for(const reply of replies){
-        const v=-s.t*score(applyMove(next,reply));
+        const v=s.t*score(applyMove(next,reply));
         if(v<replyWorst)replyWorst=v;
       }
       value=replyWorst;
