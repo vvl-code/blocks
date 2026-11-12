@@ -1,4 +1,4 @@
-import {parseFen,PIECES,legalMoves,applyMove,inCheck,status as chessStatus,chooseAiMove} from './chess.js';
+import {parseFen,PIECES,legalMoves,applyMove,inCheck,status as chessStatus,chooseAiMove,gridIndexToBoardIndex} from './chess.js';
 import {mountPinball} from './pinball.js';
 
 'use strict';
@@ -455,7 +455,7 @@ function chessGame(){
   const moves=legal(),possible=selected<0?[]:moves.filter(m=>m[0]===selected).map(m=>m[1]);
   makeGrid(8,'grid chess-grid',cellIndex=>{
    // CSS grid uses 0..63; the chess engine uses a 0x88 (128-entry) board.
-   const i=(cellIndex>>3)*16+(cellIndex&7);
+   const i=gridIndexToBoardIndex(cellIndex);
    const p=s.b[i],r=cellIndex>>3,c=cellIndex&7;
    const cell=makeButton(PIECES[p]||'','square '+((r+c)%2?'dark':'light')+(selected===i?' selected':'')+(possible.includes(i)?' possible':''));
    cell.dataset.side=p==='.'?'':p===p.toUpperCase()?'white':'black';
