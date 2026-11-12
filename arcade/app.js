@@ -408,9 +408,9 @@ function checkersGame(){
   const moves=s.finished?[]:allMoves(s.turn),targets=selected===null?[]:moves.filter(m=>m.from===selected).map(m=>m.to);
   makeGrid(8,'grid checker-grid',i=>{
    const piece=s.board[i],r=Math.floor(i/8),c=i%8;
-   const ch={1:'⛀',2:'⛂',3:'⛁',4:'⛃'}[piece]||'';
-   const b=makeButton(ch,'square '+((r+c)%2===0?'light':'dark')+(selected===i?' selected':'')+(targets.includes(i)?' can':''));
-   b.setAttribute('aria-label',ch?'Шашка '+(owner(piece)===1?'белых':'чёрных'):'Клетка');
+   const b=makeButton('','square '+((r+c)%2===0?'light':'dark')+(selected===i?' selected':'')+(targets.includes(i)?' can':''));
+   b.dataset.checker=String(piece);
+   b.setAttribute('aria-label',piece?'Шашка '+(owner(piece)===1?'белых':'чёрных')+(piece>=3?' дамка':''):'Клетка');
    b.addEventListener('click',()=>turnMove(i));return b;
   });
   stat([['БЕЛЫЕ',s.board.filter(x=>x===1||x===3).length],['ЧЁРНЫЕ',s.board.filter(x=>x===2||x===4).length],['ХОД',s.finished?'КОНЕЦ':s.turn===1?'ТВОЙ':'ИИ']]);
