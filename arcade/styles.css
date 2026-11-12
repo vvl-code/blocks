@@ -20,3 +20,18 @@
 .pinball-stage{aspect-ratio:0.64;width:min(100%,min(72dvh * .64,400px));max-height:72dvh;background:#091026;border-color:#62709a}.flipper-controls{display:flex;justify-content:space-between;gap:18px;width:min(100%,400px)}.flipper-controls button{flex:1;min-height:55px;border:1px solid #47709e;border-radius:12px;background:#263f6b;color:#eaf5ff;font-weight:900;font-size:16px}
 @media(max-height:740px){.shell{gap:8px}.help{padding:8px}.game{margin:0}.word-board{gap:4px;margin-bottom:8px}.letter{height:clamp(40px,8.1vw,57px)}.stats .stat{padding:5px}.stats strong{font-size:17px}.pinball-stage{max-height:64dvh}}
 @media(prefers-reduced-motion:reduce){.square,.num-cell{transition:none}}
+
+/* Native-looking checkers: real discs, not tiny platform-dependent chess glyphs. */
+.checker-grid .square[data-checker]:before{content:"";display:none;width:75%;height:75%;border-radius:50%;box-sizing:border-box}
+.checker-grid .square[data-checker="1"]:before,.checker-grid .square[data-checker="3"]:before{display:block;background:radial-gradient(circle at 30% 24%,#fffef8,#f1e9d4 45%,#c7bba0 85%);border:3px solid #fff8e8;box-shadow:inset -5px -6px 7px #6c625185,0 3px 5px #06151f66}
+.checker-grid .square[data-checker="2"]:before,.checker-grid .square[data-checker="4"]:before{display:block;background:radial-gradient(circle at 30% 24%,#6e86a1,#2a3952 45%,#101a2f 85%);border:3px solid #879caf;box-shadow:inset -5px -6px 7px #07122199,0 3px 5px #06151faa}
+.checker-grid .square[data-checker="3"]:after,.checker-grid .square[data-checker="4"]:after{content:"★";position:absolute;color:#e6a43d;font-size:clamp(13px,4vw,26px);text-shadow:0 1px #241d10}
+
+/* Overlayed flipper buttons stay visible while the full pinball table fits mobile. */
+.pinball-wrapper{position:relative;width:min(100%,300px,calc((100dvh - 345px)*.64));aspect-ratio:.64;max-height:min(58dvh,460px);margin:auto}
+.pinball-wrapper .pinball-stage{display:block;width:100%;height:100%;max-height:none;aspect-ratio:auto}
+.pinball-wrapper .flipper-controls{position:absolute;bottom:13px;left:9px;right:9px;width:auto;display:flex;gap:12px}
+.pinball-wrapper .flipper-controls button{min-width:0;min-height:49px;background:#233c68c9;border:1px solid #88a6d7;color:#fff;backdrop-filter:blur(5px);font-size:12px;box-shadow:0 2px 12px #030d27aa;touch-action:none}
+.shell:has(.pinball-wrapper){gap:9px}
+.shell:has(.pinball-wrapper) .help{padding:8px}
+@media(max-height:750px){.pinball-wrapper{width:min(100%,260px,calc((100dvh - 310px)*.64));max-height:52dvh}.shell:has(.pinball-wrapper) footer{display:none}}
