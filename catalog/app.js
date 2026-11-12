@@ -22,7 +22,7 @@
       title: 'КОСЫНКА',
       description: 'Косынка — классический пасьянс',
       url: new URL('../solitaire/', window.location.href).href
-    ,
+    },
     word: {title: '5 БУКВ', description: '5 БУКВ — My Games', url: new URL('../arcade/?game=word',window.location.href).href},
     mines: {title: 'САПЁР', description: 'САПЁР — My Games', url: new URL('../arcade/?game=mines',window.location.href).href},
     game2048: {title: '2048', description: '2048 — My Games', url: new URL('../arcade/?game=game2048',window.location.href).href},
