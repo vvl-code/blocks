@@ -453,8 +453,10 @@ function chessGame(){
  }
  function show(){
   const moves=legal(),possible=selected<0?[]:moves.filter(m=>m[0]===selected).map(m=>m[1]);
-  makeGrid(8,'grid chess-grid',i=>{
-   const p=s.b[i],r=Math.floor(i/16),c=i%16;
+  makeGrid(8,'grid chess-grid',cellIndex=>{
+   // CSS grid uses 0..63; the chess engine uses a 0x88 (128-entry) board.
+   const i=(cellIndex>>3)*16+(cellIndex&7);
+   const p=s.b[i],r=cellIndex>>3,c=cellIndex&7;
    const cell=makeButton(PIECES[p]||'','square '+((r+c)%2?'dark':'light')+(selected===i?' selected':'')+(possible.includes(i)?' possible':''));
    cell.dataset.side=p==='.'?'':p===p.toUpperCase()?'white':'black';
    cell.setAttribute('aria-label',p==='.'?'Пустая клетка':p+' '+String.fromCharCode(97+c)+(8-r));
