@@ -52,6 +52,21 @@ for (const [name, viewport] of [
       const frame=await iframe.contentFrame();
       assert.ok(frame,'game iframe navigation works: '+id);
       await frame.waitForSelector(selectors[id],{timeout:10000});
+      if (id === 'pinball') {
+        const controls = await frame.evaluate(() => {
+          const flipper = document.querySelector('.flipper-controls button');
+          const launcher = document.querySelector('#controls > button');
+          if (!flipper || !launcher) return null;
+          return {
+            flipperBottom: flipper.getBoundingClientRect().bottom,
+            launcherBottom: launcher.getBoundingClientRect().bottom,
+            height: window.innerHeight
+          };
+        });
+        assert.ok(controls, 'Pinball flipper and launcher buttons exist');
+        assert.ok(controls.flipperBottom <= controls.height, 'Pinball flippers must fit without scrolling: ' + JSON.stringify(controls));
+        assert.ok(controls.launcherBottom <= controls.height, 'Pinball launcher must fit without scrolling: ' + JSON.stringify(controls));
+      }
       await page.screenshot({path:shots+'/'+id+'.png',fullPage:false});
       const gameOverflow=await frame.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
       assert.ok(gameOverflow<=3,id+' has horizontal overflow '+gameOverflow);
