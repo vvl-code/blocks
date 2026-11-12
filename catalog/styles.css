@@ -46,3 +46,11 @@
 .blocks-art .stack-cell:nth-child(7){grid-column:3;grid-row:4}.blocks-art .stack-cell:nth-child(8){grid-column:4;grid-row:4}
 .blocks-art .stack-cell:nth-child(9){grid-column:1;grid-row:5}.blocks-art .stack-cell:nth-child(10){grid-column:2;grid-row:5}
 .blocks-art .stack-cell:nth-child(11){grid-column:3;grid-row:5}.blocks-art .stack-cell:nth-child(12){grid-column:4;grid-row:5}
+
+.emoji-art{background:radial-gradient(circle at 45% 37%,#2c547a,#12253b 76%);display:grid;place-items:center}
+.emoji-art>span{font-size:clamp(52px,12vw,72px);line-height:1;filter:drop-shadow(0 5px 10px #05101da0)}
+.art-word{background:radial-gradient(circle,#5c3f91,#1c224e)}.art-mines{background:radial-gradient(circle,#67415b,#22233b)}
+.art-game2048{background:radial-gradient(circle,#95684e,#3a3048)}.art-snake{background:radial-gradient(circle,#245d4b,#15302e)}
+.art-sudoku{background:radial-gradient(circle,#365783,#1a2c4c)}.art-reversi{background:radial-gradient(circle,#296554,#173a3a)}
+.art-checkers{background:radial-gradient(circle,#957453,#3c3544)}.art-chess{background:radial-gradient(circle,#697686,#273647)}
+.art-pinball{background:radial-gradient(circle,#435dba,#171b56)}
