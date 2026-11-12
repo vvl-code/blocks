@@ -16,3 +16,12 @@
 .status{margin:0;min-height:34px;color:#9ddfd4;font-size:12px;text-align:center;line-height:1.4}.instructions{display:flex;gap:12px;align-items:center;background:#132239;border:1px solid #2b415d;border-radius:13px;padding:11px 13px}.instruction-icon{flex:none;border-radius:9px;background:#213d58;color:var(--mint);font-size:23px;padding:10px}.instructions p{font-size:11px;line-height:1.55;margin:0;color:var(--muted)}.instructions strong{font-size:10px;letter-spacing:.09em;color:#cce6f2}footer{margin-top:auto;text-align:center;color:#67809e;font-size:9px;letter-spacing:.13em;font-weight:800}
 @media(max-height:670px){.shell{gap:8px}.instructions{padding:8px}.board-shell{width:min(100%,min(57dvh,510px))}.status{min-height:20px}.metrics>div{min-height:45px}.metrics strong{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.gem,.progress-fill{transition:none}}
+
+/* Vivid jewel polish: saturation, reflective highlights and high contrast. */
+.gem{background:radial-gradient(circle at 34% 24%,#254b72,#091a30 80%);border-color:#446989;overflow:visible;isolation:isolate}
+.gem::before{width:72%;height:72%;border-radius:26%;filter:saturate(1.48) brightness(1.25);box-shadow:inset 5px 5px 5px #ffffffa3,inset -7px -7px 9px #00000070,0 0 13px var(--glow),0 0 5px var(--glow);border:2px solid #ffffff91}
+.gem::after{width:25%;height:13%;background:#fffffff2;filter:blur(1.5px);transform:translate(-56%,-79%) rotate(-25deg);z-index:1}
+.gem[data-type="0"]{--gem:#00f5ed;--glow:#00fff2e0}.gem[data-type="1"]{--gem:#ff4563;--glow:#ff3b64d9}
+.gem[data-type="2"]{--gem:#a04aff;--glow:#ae5affdf}.gem[data-type="3"]{--gem:#ffd23e;--glow:#ffe239d9}
+.gem[data-type="4"]{--gem:#25ee79;--glow:#25ff7dcc}.gem[data-type="5"]{--gem:#308aff;--glow:#398fffd9}
+.board-shell{background:#0d2340;border-color:#5b83a1}
