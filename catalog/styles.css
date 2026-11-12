@@ -54,3 +54,7 @@
 .art-sudoku{background:radial-gradient(circle,#365783,#1a2c4c)}.art-reversi{background:radial-gradient(circle,#296554,#173a3a)}
 .art-checkers{background:radial-gradient(circle,#957453,#3c3544)}.art-chess{background:radial-gradient(circle,#697686,#273647)}
 .art-pinball{background:radial-gradient(circle,#435dba,#171b56)}
+
+/* Dedicated Blocks cover: same small card dimensions as all other games. */
+.blocks-icon-art{display:grid;place-items:center;overflow:hidden;background:#102441}
+.blocks-card-icon{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
