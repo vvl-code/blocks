@@ -22,7 +22,16 @@
       title: 'КОСЫНКА',
       description: 'Косынка — классический пасьянс',
       url: new URL('../solitaire/', window.location.href).href
-    }
+    ,
+    word: {title: '5 БУКВ', description: '5 БУКВ — My Games', url: new URL('../arcade/?game=word',window.location.href).href},
+    mines: {title: 'САПЁР', description: 'САПЁР — My Games', url: new URL('../arcade/?game=mines',window.location.href).href},
+    game2048: {title: '2048', description: '2048 — My Games', url: new URL('../arcade/?game=game2048',window.location.href).href},
+    snake: {title: 'ЗМЕЙКА', description: 'ЗМЕЙКА — My Games', url: new URL('../arcade/?game=snake',window.location.href).href},
+    sudoku: {title: 'СУДОКУ', description: 'СУДОКУ — My Games', url: new URL('../arcade/?game=sudoku',window.location.href).href},
+    reversi: {title: 'РЕВЕРСИ', description: 'РЕВЕРСИ — My Games', url: new URL('../arcade/?game=reversi',window.location.href).href},
+    checkers: {title: 'ШАШКИ', description: 'ШАШКИ — My Games', url: new URL('../arcade/?game=checkers',window.location.href).href},
+    chess: {title: 'ШАХМАТЫ', description: 'ШАХМАТЫ — My Games', url: new URL('../arcade/?game=chess',window.location.href).href},
+    pinball: {title: 'ПИНБОЛ', description: 'ПИНБОЛ — My Games', url: new URL('../arcade/?game=pinball',window.location.href).href}
   });
 
   let telegram = null;
@@ -65,6 +74,10 @@
     $('record').textContent = 'РЕКОРД ' + formattedRecord('classic-blocks-best-v1');
     $('match3-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-match3-best-v1');
     $('solitaire-record').textContent = 'ПОБЕДЫ ' + formattedRecord('mygames-solitaire-wins-v1');
+    $('game2048-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-2048-best-v1');
+    $('snake-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-snake-best-v1');
+    $('mines-record').textContent = 'ПОБЕДЫ ' + formattedRecord('mygames-mines-wins-v1');
+    $('pinball-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-pinball-best-v1');
   }
 
   function render() {
