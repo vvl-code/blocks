@@ -116,6 +116,6 @@ function restart() {
 }
 $('restart').addEventListener('click', restart);
 $('again').addEventListener('click', restart);
-window.addEventListener('pagehide', save);
+window.addEventListener('pagehide', () => { if (!busy) save(); });
 document.addEventListener('visibilitychange', () => { if (document.hidden && !busy) save(); });
 paint();
