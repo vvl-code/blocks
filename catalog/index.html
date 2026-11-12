@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a1121">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="My Games — бесплатный каталог игр. Играй прямо в Telegram.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://telegram.org; style-src 'self'; img-src 'self' data:; frame-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'">
+  <title>My Games — каталог игр</title>
+  <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div id="catalog-view" class="shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">▦</div>
+      <div class="brand">
+        <span class="brand-name">MY <span>GAMES</span><span class="brand-dot">.</span></span>
+        <span class="brand-subtitle">ТВОЯ ИГРОВАЯ КОЛЛЕКЦИЯ</span>
+      </div>
+      <span class="brand-counter" aria-label="В каталоге одна игра">01</span>
+    </header>
+
+    <main class="content">
+      <div class="intro">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> ДОСТУПНО СЕЙЧАС</p>
+        <h1>Пора <span>играть.</span></h1>
+        <p>Классические игры в твоём Telegram. Без рекламы, подписок и лишних установок.</p>
+      </div>
+
+      <section class="section-games" aria-labelledby="available-heading">
+        <div class="section-heading">
+          <h2 id="available-heading">Мои игры</h2>
+          <span>1 игра</span>
+        </div>
+        <button type="button" class="game-card" id="play-blocks" aria-label="Запустить игру Блоки">
+          <div class="game-art" aria-hidden="true">
+            <svg viewBox="0 0 280 152" role="presentation" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="22" height="22" patternUnits="userSpaceOnUse">
+                  <path d="M22 0H0V22" fill="none" stroke="#294568" stroke-opacity=".72" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="280" height="152" rx="12" fill="#0b1930"/>
+              <rect x="53" y="5" width="174" height="142" rx="5" fill="url(#grid)" stroke="#35516c"/>
+              <g stroke="#0c1d35" stroke-width="2">
+                <rect x="98" y="27" width="21" height="21" rx="3" fill="#5ee8e8"/>
+                <rect x="120" y="27" width="21" height="21" rx="3" fill="#5ee8e8"/>
+                <rect x="142" y="27" width="21" height="21" rx="3" fill="#5ee8e8"/>
+                <rect x="164" y="27" width="21" height="21" rx="3" fill="#5ee8e8"/>
+                <rect x="76" y="92" width="21" height="21" rx="3" fill="#9b8df7"/>
+                <rect x="98" y="92" width="21" height="21" rx="3" fill="#9b8df7"/>
+                <rect x="98" y="114" width="21" height="21" rx="3" fill="#9b8df7"/>
+                <rect x="120" y="114" width="21" height="21" rx="3" fill="#9b8df7"/>
+                <rect x="142" y="92" width="21" height="21" rx="3" fill="#ffb96a"/>
+                <rect x="164" y="92" width="21" height="21" rx="3" fill="#ffb96a"/>
+                <rect x="142" y="114" width="21" height="21" rx="3" fill="#ffb96a"/>
+                <rect x="164" y="114" width="21" height="21" rx="3" fill="#ffb96a"/>
+                <rect x="54" y="114" width="21" height="21" rx="3" fill="#55de97"/>
+                <rect x="54" y="136" width="21" height="12" rx="2" fill="#55de97"/>
+              </g>
+              <circle cx="244" cy="37" r="3" fill="#62dfd2" opacity=".8"/>
+              <circle cx="35" cy="82" r="2" fill="#62dfd2" opacity=".55"/>
+            </svg>
+            <span class="art-label">АРКАДА · КЛАССИКА</span>
+          </div>
+          <div class="game-info">
+            <div class="game-title-row">
+              <span class="game-title">БЛОКИ<span class="title-dot">.</span></span>
+              <span class="live-dot" title="Доступно"></span>
+            </div>
+            <span class="game-description">Легендарная механика падающих фигур. Собирай линии и побей свой рекорд.</span>
+            <span class="game-stats">10 × 20 <span aria-hidden="true">·</span> 7 ФИГУР <span aria-hidden="true">·</span> <span id="record">РЕКОРД —</span></span>
+            <span class="play-row"><span>ИГРАТЬ</span><span class="play-arrow" aria-hidden="true">↗</span></span>
+          </div>
+        </button>
+      </section>
+
+      <section class="future" aria-labelledby="future-heading">
+        <div class="future-symbol" aria-hidden="true">✧</div>
+        <div><h2 id="future-heading">Продолжение следует</h2><p>Здесь появятся наши следующие игры.</p></div>
+      </section>
+    </main>
+    <footer class="footer"><span>MY GAMES</span><span>СДЕЛАНО ДЛЯ ИГРЫ, А НЕ ДЛЯ РЕКЛАМЫ</span></footer>
+  </div>
+
+  <section id="player-view" class="player-view" aria-label="Игра Блоки" hidden>
+    <header class="player-bar">
+      <button type="button" class="back-button" id="back-to-games" aria-label="Вернуться к списку игр"><span aria-hidden="true">‹</span> ИГРЫ</button>
+      <strong>БЛОКИ<span class="title-dot">.</span></strong>
+      <span class="player-spacer" aria-hidden="true"></span>
+    </header>
+    <iframe id="game-frame" title="Блоки — классическая игра" allow="autoplay" referrerpolicy="same-origin"></iframe>
+  </section>
+</body>
+</html>
