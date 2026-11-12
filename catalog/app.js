@@ -7,32 +7,85 @@
   const gameFrame = $('game-frame');
   const backButton = $('back-to-games');
   const playerTitle = $('player-title');
+  const arcadeUrl = (id) => new URL('../arcade/?game=' + encodeURIComponent(id), window.location.href).href;
+
   const games = Object.freeze({
-    blocks: {
-      title: 'БЛОКИ',
-      description: 'Блоки — классическая игра',
-      url: new URL('../', window.location.href).href
-    },
-    match3: {
-      title: 'ТРИ В РЯД',
-      description: 'Три в ряд — головоломка',
-      url: new URL('../match3/', window.location.href).href
-    },
-    solitaire: {
-      title: 'КОСЫНКА',
-      description: 'Косынка — классический пасьянс',
-      url: new URL('../solitaire/', window.location.href).href
-    },
-    word: {title: '5 БУКВ', description: '5 БУКВ — My Games', url: new URL('../arcade/?game=word',window.location.href).href},
-    mines: {title: 'САПЁР', description: 'САПЁР — My Games', url: new URL('../arcade/?game=mines',window.location.href).href},
-    game2048: {title: '2048', description: '2048 — My Games', url: new URL('../arcade/?game=game2048',window.location.href).href},
-    snake: {title: 'ЗМЕЙКА', description: 'ЗМЕЙКА — My Games', url: new URL('../arcade/?game=snake',window.location.href).href},
-    sudoku: {title: 'СУДОКУ', description: 'СУДОКУ — My Games', url: new URL('../arcade/?game=sudoku',window.location.href).href},
-    reversi: {title: 'РЕВЕРСИ', description: 'РЕВЕРСИ — My Games', url: new URL('../arcade/?game=reversi',window.location.href).href},
-    checkers: {title: 'ШАШКИ', description: 'ШАШКИ — My Games', url: new URL('../arcade/?game=checkers',window.location.href).href},
-    chess: {title: 'ШАХМАТЫ', description: 'ШАХМАТЫ — My Games', url: new URL('../arcade/?game=chess',window.location.href).href},
-    pinball: {title: 'ПИНБОЛ', description: 'ПИНБОЛ — My Games', url: new URL('../arcade/?game=pinball',window.location.href).href}
+    blocks: {title: 'БЛОКИ', description: 'Блоки — классическая игра', url: new URL('../', window.location.href).href},
+    match3: {title: 'ТРИ В РЯД', description: 'Три в ряд — головоломка', url: new URL('../match3/', window.location.href).href},
+    solitaire: {title: 'КОСЫНКА', description: 'Косынка — классический пасьянс', url: new URL('../solitaire/', window.location.href).href},
+    word: {title: '5 БУКВ', description: '5 букв — угадай слово', url: arcadeUrl('word')},
+    mines: {title: 'САПЁР', description: 'Сапёр — найди все мины', url: arcadeUrl('mines')},
+    game2048: {title: '2048', description: '2048 — числовая головоломка', url: arcadeUrl('game2048')},
+    snake: {title: 'ЗМЕЙКА', description: 'Змейка — классическая аркада', url: arcadeUrl('snake')},
+    sudoku: {title: 'СУДОКУ', description: 'Судоку — логическая головоломка', url: arcadeUrl('sudoku')},
+    reversi: {title: 'РЕВЕРСИ', description: 'Реверси — против компьютера', url: arcadeUrl('reversi')},
+    checkers: {title: 'ШАШКИ', description: 'Русские шашки — против компьютера', url: arcadeUrl('checkers')},
+    chess: {title: 'ШАХМАТЫ', description: 'Шахматы — против компьютера', url: arcadeUrl('chess')},
+    pinball: {title: 'ПИНБОЛ', description: 'Космический пинбол — аркада', url: arcadeUrl('pinball')}
   });
+
+  const extras = [
+    {id:'word', tag:'СЛОВА', text:'Угадай русское слово за шесть попыток.', marks:['Б','У','К','В','Ы'], note:'5 БУКВ · 6 ПОПЫТОК'},
+    {id:'mines', tag:'ГОЛОВОЛОМКА', text:'Открывай клетки, ищи мины и ставь флажки.', marks:['✦','8','⚑'], note:'САПЁР · КЛАССИКА'},
+    {id:'game2048', tag:'ЛОГИКА', text:'Объединяй одинаковые плитки и доберись до 2048.', marks:['2','4','8'], key:'mygames-2048-best-v1', keyLabel:'РЕКОРД'},
+    {id:'snake', tag:'АРКАДА', text:'Собирай еду и не наступи на собственный хвост.', marks:['●','●','●','◆'], key:'mygames-snake-best-v1', keyLabel:'РЕКОРД'},
+    {id:'sudoku', tag:'ЛОГИКА', text:'Заполни таблицу без повторений по строкам и квадратам.', marks:['1','5','9'], note:'9 × 9 · ЦИФРЫ'},
+    {id:'reversi', tag:'СТРАТЕГИЯ', text:'Захвати поле, переворачивая фишки соперника.', marks:['●','◯','◯','●'], note:'ПРОТИВ КОМПЬЮТЕРА'},
+    {id:'checkers', tag:'НАСТОЛЬНАЯ', text:'Русские шашки с дамками и обязательным взятием.', marks:['⛀','⛂'], note:'ПРОТИВ КОМПЬЮТЕРА'},
+    {id:'chess', tag:'НАСТОЛЬНАЯ', text:'Шах, мат, рокировка — сыграй партию против ИИ.', marks:['♞','♜'], note:'ПРОТИВ КОМПЬЮТЕРА'},
+    {id:'pinball', tag:'АРКАДА', text:'Космический стол, бамперы, лапки и три шара.', marks:['✧','●','✧'], note:'3 ШАРА · ФИЗИКА'}
+  ];
+
+  function createExtraCards() {
+    const list = document.querySelector('.section-games');
+    if (!list) return;
+    for (const meta of extras) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'game-card compact-card';
+      button.dataset.game = meta.id;
+      button.setAttribute('aria-label', 'Запустить игру ' + games[meta.id].title);
+
+      const artwork = document.createElement('div');
+      artwork.className = 'compact-art arcade-art arcade-' + meta.id;
+      artwork.setAttribute('aria-hidden', 'true');
+      for (const symbol of meta.marks) {
+        const mark = document.createElement('span');
+        mark.textContent = symbol;
+        artwork.appendChild(mark);
+      }
+
+      const info = document.createElement('div');
+      info.className = 'compact-info';
+      const tag = document.createElement('span');
+      tag.className = 'compact-tag';
+      tag.textContent = meta.tag;
+      const title = document.createElement('span');
+      title.className = 'compact-title';
+      title.textContent = games[meta.id].title;
+      const dot = document.createElement('span');
+      dot.className = 'title-dot';
+      dot.textContent = '.';
+      title.appendChild(dot);
+      const description = document.createElement('span');
+      description.className = 'compact-description';
+      description.textContent = meta.text;
+      const note = document.createElement('span');
+      note.className = 'compact-record';
+      note.id = 'record-' + meta.id;
+      note.textContent = meta.note || meta.keyLabel + ' —';
+      const play = document.createElement('span');
+      play.className = 'compact-play';
+      play.textContent = 'ИГРАТЬ ';
+      const arrow = document.createElement('span');
+      arrow.textContent = '↗';
+      arrow.setAttribute('aria-hidden', 'true');
+      play.appendChild(arrow);
+      info.append(tag, title, description, note, play);
+      button.append(artwork, info);
+      list.appendChild(button);
+    }
+  }
 
   let telegram = null;
   try {
@@ -74,10 +127,9 @@
     $('record').textContent = 'РЕКОРД ' + formattedRecord('classic-blocks-best-v1');
     $('match3-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-match3-best-v1');
     $('solitaire-record').textContent = 'ПОБЕДЫ ' + formattedRecord('mygames-solitaire-wins-v1');
-    $('game2048-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-2048-best-v1');
-    $('snake-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-snake-best-v1');
-    $('mines-record').textContent = 'ПОБЕДЫ ' + formattedRecord('mygames-mines-wins-v1');
-    $('pinball-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-pinball-best-v1');
+    for (const meta of extras) {
+      if (meta.key) $('record-' + meta.id).textContent = meta.keyLabel + ' ' + formattedRecord(meta.key);
+    }
   }
 
   function render() {
@@ -91,7 +143,6 @@
       setTelegramBackButton(false);
       document.title = 'My Games — каталог игр';
       displayRecords();
-      // The child frame may finish persisting a just-closed game on pagehide.
       window.setTimeout(displayRecords, 100);
       return;
     }
@@ -109,11 +160,9 @@
   }
 
   function startGame(id) {
-    if (!Object.prototype.hasOwnProperty.call(games, id)) return;
-    if (currentGame() === id) return;
+    if (!Object.prototype.hasOwnProperty.call(games, id) || currentGame() === id) return;
     const url = new URL(window.location.href);
     url.searchParams.set('game', id);
-    // Direct in-place navigation avoids iFrame/WebView history double-back.
     window.history.replaceState({myGamesView: id}, '', url.pathname + url.search + url.hash);
     render();
   }
@@ -126,6 +175,7 @@
     render();
   }
 
+  createExtraCards();
   for (const button of document.querySelectorAll('[data-game]')) {
     button.addEventListener('click', () => startGame(button.dataset.game));
   }
@@ -135,6 +185,5 @@
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden && !currentGame()) displayRecords();
   });
-
   render();
 })();
