@@ -6,6 +6,7 @@ const $=id=>document.getElementById(id);
 const root=$('game'),message=$('message'),controls=$('controls'),statsEl=$('stats'),help=$('help');
 const params=new URLSearchParams(location.search);
 const gameId=params.get('game')||'word';
+if(gameId==='pinball')document.body.classList.add('pinball-mode');
 const MODES={
   word:['5 БУКВ','УГАДАЙ СЛОВО','Угадай русское слово из пяти букв за шесть попыток. Зелёный — буква на месте, жёлтый — есть в слове.'],
   mines:['САПЁР','КЛАССИКА WINDOWS','Открой все безопасные клетки. Долгое нажатие ставит флажок, первое открытие всегда безопасно.'],
