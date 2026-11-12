@@ -1,94 +1,127 @@
 (() => {
   'use strict';
 
-  const catalog = document.getElementById('catalog-view');
-  const player = document.getElementById('player-view');
-  const gameFrame = document.getElementById('game-frame');
-  const playButton = document.getElementById('play-blocks');
-  const backButton = document.getElementById('back-to-games');
-  const record = document.getElementById('record');
-  const gameUrl = new URL('../', window.location.href).href;
+  const $ = (id) => document.getElementById(id);
+  const catalog = $('catalog-view');
+  const player = $('player-view');
+  const gameFrame = $('game-frame');
+  const backButton = $('back-to-games');
+  const playerTitle = $('player-title');
+  const games = Object.freeze({
+    blocks: {
+      title: 'БЛОКИ',
+      description: 'Блоки — классическая игра',
+      url: new URL('../', window.location.href).href
+    },
+    match3: {
+      title: 'ТРИ В РЯД',
+      description: 'Три в ряд — головоломка',
+      url: new URL('../match3/', window.location.href).href
+    },
+    solitaire: {
+      title: 'КОСЫНКА',
+      description: 'Косынка — классический пасьянс',
+      url: new URL('../solitaire/', window.location.href).href
+    }
+  });
 
   let telegram = null;
   try {
-    telegram = window.Telegram && window.Telegram.WebApp;
+    telegram = window.Telegram?.WebApp || null;
     if (telegram) {
       telegram.ready();
       telegram.expand();
-      if (telegram.BackButton) telegram.BackButton.onClick(goBack);
+      telegram.BackButton?.onClick(goBack);
     }
   } catch (error) {
-    console.warn('Telegram integration unavailable:', error);
+    console.warn('Telegram interface unavailable:', error);
     telegram = null;
   }
 
-  function setTelegramBackButton(isVisible) {
+  function setTelegramBackButton(visible) {
     try {
-      if (!telegram || !telegram.BackButton) return;
-      if (isVisible) telegram.BackButton.show();
-      else telegram.BackButton.hide();
+      if (visible) telegram?.BackButton?.show();
+      else telegram?.BackButton?.hide();
     } catch (error) {
-      console.warn('Telegram back button unavailable:', error);
+      console.warn('Telegram BackButton unavailable:', error);
     }
   }
 
-  function displayRecord() {
+  function currentGame() {
+    const id = new URLSearchParams(window.location.search).get('game');
+    return Object.prototype.hasOwnProperty.call(games, id) ? id : null;
+  }
+
+  function formattedRecord(key) {
     try {
-      const raw = window.localStorage.getItem('classic-blocks-best-v1');
-      const value = Number.parseInt(raw || '0', 10);
-      record.textContent = 'РЕКОРД ' + (Number.isFinite(value) && value > 0 ? value.toLocaleString('ru-RU') : '—');
+      const n = Number.parseInt(window.localStorage.getItem(key) || '0', 10);
+      return Number.isSafeInteger(n) && n > 0 ? n.toLocaleString('ru-RU') : '—';
     } catch {
-      record.textContent = 'РЕКОРД —';
+      return '—';
     }
   }
 
-  function inGame() {
-    return new URLSearchParams(window.location.search).get('game') === 'blocks';
+  function displayRecords() {
+    $('record').textContent = 'РЕКОРД ' + formattedRecord('classic-blocks-best-v1');
+    $('match3-record').textContent = 'РЕКОРД ' + formattedRecord('mygames-match3-best-v1');
+    $('solitaire-record').textContent = 'ПОБЕДЫ ' + formattedRecord('mygames-solitaire-wins-v1');
   }
 
   function render() {
-    const active = inGame();
-    if (!active) {
-      gameFrame.removeAttribute('src');
+    const id = currentGame();
+    const config = id && games[id];
+    if (!config) {
+      if (gameFrame.hasAttribute('src')) gameFrame.removeAttribute('src');
+      delete gameFrame.dataset.game;
       player.hidden = true;
       catalog.hidden = false;
       setTelegramBackButton(false);
-      displayRecord();
       document.title = 'My Games — каталог игр';
+      displayRecords();
+      // The child frame may finish persisting a just-closed game on pagehide.
+      window.setTimeout(displayRecords, 100);
       return;
     }
 
     catalog.hidden = true;
     player.hidden = false;
-    if (!gameFrame.hasAttribute('src')) gameFrame.src = gameUrl;
+    playerTitle.textContent = config.title + '.';
+    gameFrame.title = config.description;
+    if (gameFrame.dataset.game !== id) {
+      gameFrame.dataset.game = id;
+      gameFrame.src = config.url;
+    }
     setTelegramBackButton(true);
-    document.title = 'Блоки — My Games';
+    document.title = config.description + ' — My Games';
   }
 
-  function startGame() {
-    if (inGame()) return;
+  function startGame(id) {
+    if (!Object.prototype.hasOwnProperty.call(games, id)) return;
+    if (currentGame() === id) return;
     const url = new URL(window.location.href);
-    url.searchParams.set('game', 'blocks');
-    // Avoid a joint WebView history entry: iframe navigation can otherwise
-    // consume the first Back action before the catalog becomes visible.
-    window.history.replaceState({myGamesView: 'blocks'}, '', url.pathname + url.search + url.hash);
+    url.searchParams.set('game', id);
+    // Direct in-place navigation avoids iFrame/WebView history double-back.
+    window.history.replaceState({myGamesView: id}, '', url.pathname + url.search + url.hash);
     render();
   }
 
   function goBack() {
-    if (!inGame()) return;
+    if (!currentGame()) return;
     const url = new URL(window.location.href);
     url.searchParams.delete('game');
-    // Switch screens synchronously, independent of the iframe's session history.
     window.history.replaceState({myGamesView: 'catalog'}, '', url.pathname + url.search + url.hash);
     render();
   }
 
-  playButton.addEventListener('click', startGame);
+  for (const button of document.querySelectorAll('[data-game]')) {
+    button.addEventListener('click', () => startGame(button.dataset.game));
+  }
   backButton.addEventListener('click', goBack);
   window.addEventListener('popstate', render);
+  window.addEventListener('pageshow', render);
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && !inGame()) displayRecord();
+    if (!document.hidden && !currentGame()) displayRecords();
   });
+
   render();
 })();
