@@ -58,3 +58,33 @@
 /* Dedicated Blocks cover: same small card dimensions as all other games. */
 .blocks-icon-art{display:grid;place-items:center;overflow:hidden;background:#102441}
 .blocks-card-icon{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
+
+
+/* My Games v2: unified compact artwork for all twelve games. */
+.blocks-icon-art{background:#0c1c34;border:1px solid #365479;overflow:hidden}
+.blocks-card-icon{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
+.arcade-art{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px;padding:10px;border:1px solid #415a80;isolation:isolate}
+.arcade-art span{display:grid;place-items:center;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:900;line-height:1;filter:drop-shadow(0 2px 5px #030814a0);flex-shrink:0}
+.arcade-word{background:radial-gradient(circle at 35% 28%,#514282,#182448 78%);gap:3px}
+.arcade-word span{width:18px;height:26px;background:#6671dd;color:#f5f3ff;border:1px solid #a6b2ff;border-radius:4px;font-size:14px;box-shadow:inset 0 2px 5px #ffffff55}
+.arcade-mines{background:radial-gradient(circle,#334761,#16243c 76%);gap:10px}
+.arcade-mines span{font-size:37px;color:#eaf5ff}.arcade-mines span:nth-child(2){font-size:24px;color:#fbd37c;border:2px solid #6f90af;border-radius:4px;padding:4px}.arcade-mines span:nth-child(3){font-size:22px;color:#ff727f}
+.arcade-game2048{background:radial-gradient(circle at 55% 40%,#7a4e37,#2d3145 78%);gap:3px}
+.arcade-game2048 span{font-size:25px;color:#fff6dd;border-radius:7px;padding:11px 5px;background:#a96d4b;box-shadow:inset 0 2px 5px #fff6}.arcade-game2048 span:nth-child(2){background:#cd9c54}.arcade-game2048 span:nth-child(3){background:#efb25d}
+.arcade-snake{background:radial-gradient(circle,#245b4c,#112c34 78%);gap:2px}
+.arcade-snake span{font-size:25px;color:#60edb7}.arcade-snake span:last-child{color:#ff8173;font-size:19px}
+.arcade-sudoku{background:radial-gradient(circle,#2e567b,#172b43 78%);gap:4px}
+.arcade-sudoku span{font-size:29px;color:#e5f6ff;border:2px solid #86a8c9;border-radius:5px;width:28px;height:38px}
+.arcade-reversi{background:radial-gradient(circle,#326a5b,#10362c 85%);display:grid;grid-template-columns:repeat(2,33px);grid-template-rows:repeat(2,33px);gap:5px}
+.arcade-reversi span{font-size:29px;border-radius:50%;width:33px;height:33px;color:#f2faf9;background:#1e3436;box-shadow:inset 2px 2px 4px #ffffff36,inset -2px -2px 4px #0009}
+.arcade-reversi span:nth-child(2),.arcade-reversi span:nth-child(3){background:#eef2e8;color:#15403a}
+.arcade-checkers{background:radial-gradient(circle,#554d71,#1b2746 80%);gap:10px}
+.arcade-checkers span{width:47px;height:47px;border-radius:50%;font-size:40px;color:#efefff;background:#a5afd0;border:3px solid #d2dafa;box-shadow:0 3px 0 #545e89}
+.arcade-checkers span:last-child{background:#32416e;color:#d0dfff;border-color:#728bb6}
+.arcade-chess{background:radial-gradient(circle at 38% 30%,#6d5c4b,#252b39 85%);gap:8px}
+.arcade-chess span{font-family:"DejaVu Sans","Segoe UI Symbol",serif;font-size:55px;color:#ffffff;text-shadow:0 3px 4px #1e2434;-webkit-text-stroke:.7px #222}
+.arcade-chess span:last-child{color:#1d263b;-webkit-text-stroke:1.3px #e4f0ed}
+.arcade-pinball{background:radial-gradient(circle at 50% 30%,#2b487d,#151932 83%);gap:2px}
+.arcade-pinball span{font-size:38px;color:#62f1ef}.arcade-pinball span:nth-child(2){font-size:38px;color:#f2f5ff;text-shadow:0 0 12px #8ac0ff}
+@media(max-width:355px){.arcade-word span{width:15px;height:23px;font-size:12px}.arcade-chess span{font-size:42px}.arcade-game2048 span{font-size:22px;padding:9px 4px}.arcade-sudoku span{width:23px;font-size:24px}}
+@media(prefers-reduced-motion:reduce){.game-card{transition:none}}
