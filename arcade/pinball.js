@@ -3,13 +3,14 @@ export function mountPinball({mount,stats,message,controls}) {
   const canvas=document.createElement('canvas');
   canvas.width=320;canvas.height=500;canvas.className='pinball-stage';
   canvas.setAttribute('aria-label','Космический пинбол: левая и правая лапки, запуск шарика');
-  mount.replaceChildren(canvas);
+  const stage=document.createElement('div');stage.className='pinball-wrapper';
+  stage.appendChild(canvas);mount.replaceChildren(stage);
   const ctx=canvas.getContext('2d');
   if(!ctx)throw new Error('Canvas 2D unavailable');
   const ui=document.createElement('div');ui.className='flipper-controls';
   const left=document.createElement('button'),right=document.createElement('button');
   left.textContent='◀ ЛЕВАЯ';right.textContent='ПРАВАЯ ▶';
-  ui.append(left,right);controls.appendChild(ui);
+  ui.append(left,right);stage.appendChild(ui);
   const launch=document.createElement('button');launch.textContent='ЗАПУСК ШАРА';controls.appendChild(launch);
   const W=320,H=500, gravity=.18, bumpers=[
     {x:105,y:146,r:20,c:'#64f1e1'},
