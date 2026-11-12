@@ -69,20 +69,19 @@
     if (inGame()) return;
     const url = new URL(window.location.href);
     url.searchParams.set('game', 'blocks');
-    window.history.pushState({myGamesView: 'blocks'}, '', url.pathname + url.search);
+    // Avoid a joint WebView history entry: iframe navigation can otherwise
+    // consume the first Back action before the catalog becomes visible.
+    window.history.replaceState({myGamesView: 'blocks'}, '', url.pathname + url.search + url.hash);
     render();
   }
 
   function goBack() {
     if (!inGame()) return;
-    if (window.history.state && window.history.state.myGamesView === 'blocks') {
-      window.history.back();
-    } else {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('game');
-      window.history.replaceState({myGamesView: 'catalog'}, '', url.pathname + url.search);
-      render();
-    }
+    const url = new URL(window.location.href);
+    url.searchParams.delete('game');
+    // Switch screens synchronously, independent of the iframe's session history.
+    window.history.replaceState({myGamesView: 'catalog'}, '', url.pathname + url.search + url.hash);
+    render();
   }
 
   playButton.addEventListener('click', startGame);
