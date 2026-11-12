@@ -35,3 +35,19 @@
 .shell:has(.pinball-wrapper){gap:9px}
 .shell:has(.pinball-wrapper) .help{padding:8px}
 @media(max-height:750px){.pinball-wrapper{width:min(100%,260px,calc((100dvh - 310px)*.64));max-height:52dvh}.shell:has(.pinball-wrapper) footer{display:none}}
+
+
+/* Pinball controls must be available without vertical scrolling on phones. */
+.pinball-mode .shell{gap:7px;padding:8px 10px max(9px,env(safe-area-inset-bottom))}
+.pinball-mode .top{min-height:40px}
+.pinball-mode .identity h1{font-size:16px;letter-spacing:.055em}
+.pinball-mode .stats .stat{padding:5px 3px}
+.pinball-mode .stats .stat strong{font-size:17px}
+.pinball-mode .game{flex:0 0 auto;margin:0 auto;min-height:0}
+.pinball-mode .pinball-stage{width:clamp(185px,calc(62dvh - 220px),290px);height:auto;max-height:none;aspect-ratio:320/500;border-width:4px}
+.pinball-mode .message{min-height:17px;font-size:11px}
+.pinball-mode .controls{width:100%;gap:5px;flex-direction:column;align-items:center}
+.pinball-mode .flipper-controls{width:min(100%,350px);gap:10px}
+.pinball-mode .flipper-controls button{min-height:45px;padding:8px 6px;font-size:13px}
+.pinball-mode .controls>button{width:min(100%,350px);padding:8px 12px;font-size:11px}
+.pinball-mode .help,.pinball-mode footer{display:none}
