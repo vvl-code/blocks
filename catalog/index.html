@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
   <link rel="stylesheet" href="./styles.css">
   <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
-  <script src="./app.js?v=1.1.1" defer></script>
+  <script src="./app.js?v=1.2.0" defer></script>
 </head>
 <body>
   <div id="catalog-view" class="shell">
@@ -21,7 +21,7 @@
         <span class="brand-name">MY <span>GAMES</span><span class="brand-dot">.</span></span>
         <span class="brand-subtitle">ТВОЯ ИГРОВАЯ КОЛЛЕКЦИЯ</span>
       </div>
-      <span class="brand-counter" aria-label="В каталоге одна игра">01</span>
+      <span class="brand-counter" aria-label="В каталоге три игры">03</span>
     </header>
 
     <main class="content">
@@ -34,9 +34,9 @@
       <section class="section-games" aria-labelledby="available-heading">
         <div class="section-heading">
           <h2 id="available-heading">Мои игры</h2>
-          <span>1 игра</span>
+          <span>3 игры</span>
         </div>
-        <button type="button" class="game-card" id="play-blocks" aria-label="Запустить игру Блоки">
+        <button type="button" class="game-card" id="play-blocks" data-game="blocks" aria-label="Запустить игру Блоки">
           <div class="game-art" aria-hidden="true">
             <svg viewBox="0 0 280 152" role="presentation" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -77,6 +77,27 @@
             <span class="play-row"><span>ИГРАТЬ</span><span class="play-arrow" aria-hidden="true">↗</span></span>
           </div>
         </button>
+
+        <button type="button" class="game-card compact-card" data-game="match3" aria-label="Запустить игру Три в ряд">
+          <div class="compact-art gems-art" aria-hidden="true"><span>◆</span><span>◆</span><span>◆</span><span>◆</span><span>◆</span><span>◆</span><span>◆</span><span>◆</span><span>◆</span></div>
+          <div class="compact-info">
+            <span class="compact-tag">ГОЛОВОЛОМКА</span>
+            <span class="compact-title">ТРИ В РЯД<span class="title-dot">.</span></span>
+            <span class="compact-description">Собирай кристаллы, создавай комбо и побей свой рекорд.</span>
+            <span class="compact-record" id="match3-record">РЕКОРД —</span>
+            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
+          </div>
+        </button>
+        <button type="button" class="game-card compact-card" data-game="solitaire" aria-label="Запустить игру Косынка">
+          <div class="compact-art cards-art" aria-hidden="true"><span>♠</span><span>♥</span><span>♣</span><span>♦</span></div>
+          <div class="compact-info">
+            <span class="compact-tag">ПАСЬЯНС</span>
+            <span class="compact-title">КОСЫНКА<span class="title-dot">.</span></span>
+            <span class="compact-description">Классическая колода 52 карты. Собери все четыре масти.</span>
+            <span class="compact-record" id="solitaire-record">ПОБЕДЫ —</span>
+            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
+          </div>
+        </button>
       </section>
 
       <section class="future" aria-labelledby="future-heading">
@@ -87,10 +108,10 @@
     <footer class="footer"><span>MY GAMES</span><span>СДЕЛАНО ДЛЯ ИГРЫ, А НЕ ДЛЯ РЕКЛАМЫ</span></footer>
   </div>
 
-  <section id="player-view" class="player-view" aria-label="Игра Блоки" hidden>
+  <section id="player-view" class="player-view" aria-label="Экран игры" hidden>
     <header class="player-bar">
       <button type="button" class="back-button" id="back-to-games" aria-label="Вернуться к списку игр"><span aria-hidden="true">‹</span> ИГРЫ</button>
-      <strong>БЛОКИ<span class="title-dot">.</span></strong>
+      <strong id="player-title">БЛОКИ<span class="title-dot">.</span></strong>
       <span class="player-spacer" aria-hidden="true"></span>
     </header>
     <iframe id="game-frame" title="Блоки — классическая игра" allow="autoplay" referrerpolicy="same-origin"></iframe>
