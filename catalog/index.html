@@ -11,7 +11,7 @@
   <link rel="icon" type="image/svg+xml" href="../icons/icon.svg">
   <link rel="stylesheet" href="./styles.css?v=2.0.1">
   <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
-  <script src="./app.js?v=2.0.1" defer></script>
+  <script src="./app.js?v=2.0.2" defer></script>
 </head>
 <body>
   <div id="catalog-view" class="shell">
@@ -63,96 +63,6 @@
             <span class="compact-title">КОСЫНКА<span class="title-dot">.</span></span>
             <span class="compact-description">Классическая колода 52 карты. Собери все четыре масти.</span>
             <span class="compact-record" id="solitaire-record">ПОБЕДЫ —</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="word" aria-label="Запустить игру 5 БУКВ">
-          <div class="compact-art emoji-art art-word" aria-hidden="true"><span>🔤</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">СЛОВА</span>
-            <span class="compact-title">5 БУКВ<span class="title-dot">.</span></span>
-            <span class="compact-description">Угадай загаданное слово за шесть попыток.</span>
-            <span class="compact-record" id="word-record">6 ПОПЫТОК</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="mines" aria-label="Запустить игру САПЁР">
-          <div class="compact-art emoji-art art-mines" aria-hidden="true"><span>💣</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">ЛОГИКА</span>
-            <span class="compact-title">САПЁР<span class="title-dot">.</span></span>
-            <span class="compact-description">Мины, флажки и безопасный первый ход.</span>
-            <span class="compact-record" id="mines-record">9 × 9</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="game2048" aria-label="Запустить игру 2048">
-          <div class="compact-art emoji-art art-game2048" aria-hidden="true"><span>🔢</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">ГОЛОВОЛОМКА</span>
-            <span class="compact-title">2048<span class="title-dot">.</span></span>
-            <span class="compact-description">Соединяй одинаковые плитки и набирай очки.</span>
-            <span class="compact-record" id="game2048-record">4 × 4</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="snake" aria-label="Запустить игру ЗМЕЙКА">
-          <div class="compact-art emoji-art art-snake" aria-hidden="true"><span>🐍</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">АРКАДА</span>
-            <span class="compact-title">ЗМЕЙКА<span class="title-dot">.</span></span>
-            <span class="compact-description">Собирай еду и не задень свой хвост.</span>
-            <span class="compact-record" id="snake-record">КЛАССИКА</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="sudoku" aria-label="Запустить игру СУДОКУ">
-          <div class="compact-art emoji-art art-sudoku" aria-hidden="true"><span>🧩</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">ГОЛОВОЛОМКА</span>
-            <span class="compact-title">СУДОКУ<span class="title-dot">.</span></span>
-            <span class="compact-description">Девять цифр, одна логика, множество ходов.</span>
-            <span class="compact-record" id="sudoku-record">9 × 9</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="reversi" aria-label="Запустить игру РЕВЕРСИ">
-          <div class="compact-art emoji-art art-reversi" aria-hidden="true"><span>⚫</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">СТРАТЕГИЯ</span>
-            <span class="compact-title">РЕВЕРСИ<span class="title-dot">.</span></span>
-            <span class="compact-description">Переворачивай фишки соперника.</span>
-            <span class="compact-record" id="reversi-record">ПРОТИВ ИИ</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="checkers" aria-label="Запустить игру ШАШКИ">
-          <div class="compact-art emoji-art art-checkers" aria-hidden="true"><span>⛀</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">НАСТОЛЬНАЯ</span>
-            <span class="compact-title">ШАШКИ<span class="title-dot">.</span></span>
-            <span class="compact-description">Русские шашки с обязательным взятием.</span>
-            <span class="compact-record" id="checkers-record">ПРОТИВ ИИ</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="chess" aria-label="Запустить игру ШАХМАТЫ">
-          <div class="compact-art emoji-art art-chess" aria-hidden="true"><span>♞</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">СТРАТЕГИЯ</span>
-            <span class="compact-title">ШАХМАТЫ<span class="title-dot">.</span></span>
-            <span class="compact-description">Классические шахматы против компьютера.</span>
-            <span class="compact-record" id="chess-record">ПРОТИВ ИИ</span>
-            <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
-          </div>
-        </button>
-        <button type="button" class="game-card compact-card" data-game="pinball" aria-label="Запустить игру ПИНБОЛ">
-          <div class="compact-art emoji-art art-pinball" aria-hidden="true"><span>🚀</span></div>
-          <div class="compact-info">
-            <span class="compact-tag">АРКАДА</span>
-            <span class="compact-title">ПИНБОЛ<span class="title-dot">.</span></span>
-            <span class="compact-description">Космический стол и три шара.</span>
-            <span class="compact-record" id="pinball-record">КОСМОС</span>
             <span class="compact-play">ИГРАТЬ <span aria-hidden="true">↗</span></span>
           </div>
         </button>
