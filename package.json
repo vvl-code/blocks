@@ -1,0 +1,10 @@
+{
+  "name": "my-games-static",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "description": "Free static Telegram Mini App games; no runtime dependencies"
+}
