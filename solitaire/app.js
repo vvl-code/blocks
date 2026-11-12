@@ -50,6 +50,7 @@ function makeCard(id,up,from){
   const button=document.createElement('button');
   button.type='button';
   button.className='card'+(up?(red(id)?' red':''):' back');
+  button.dataset.cardId=String(id);
   if(up){
     button.setAttribute('aria-label',rankName(id)+' '+SUIT_NAMES[suit(id)]);
     const label=document.createElement('span');label.className='corner';label.textContent=rankName(id)+SUITS[suit(id)];
@@ -119,8 +120,36 @@ function remember(){
   past.push(JSON.stringify(game));
   if(past.length>70)past.shift();
 }
+function captureCardPositions(ids) {
+  const result=new Map();
+  for (const id of ids) {
+    const el=document.querySelector('[data-card-id="'+id+'"]');
+    if (el) result.set(String(id),el.getBoundingClientRect());
+  }
+  return result;
+}
+function animateFromPrevious(previous, ids, originRect=null) {
+  // FLIP: preserve intuitive physical card movement even though the tableau is re-rendered.
+  if (!('animate' in Element.prototype) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for (const [index,id] of ids.entries()) {
+    const el=document.querySelector('[data-card-id="'+id+'"]');
+    const old=previous.get(String(id)) || originRect;
+    if (!el || !old) continue;
+    const next=el.getBoundingClientRect();
+    const dx=old.left-next.left, dy=old.top-next.top;
+    const delay=index*28;
+    el.style.zIndex='2000';
+    el.animate(
+      [{transform:'translate('+dx+'px,'+dy+'px) scale(.96)',opacity:.82},
+       {transform:'translate(0,0) scale(1)',opacity:1}],
+      {duration:310+delay,delay,easing:'cubic-bezier(.18,.72,.19,1.02)'}
+    ).finished.catch(()=>{}).finally(()=>{if(el.isConnected)el.style.zIndex='';});
+  }
+}
 function commitMove(from,to){
   if(!canMove(game,from,to))return false;
+  const moving=selectionCards(game,from);
+  const previous=captureCardPositions(moving);
   remember();
   moveCards(game,from,to);
   selected=null;hintFrom=null;
@@ -128,14 +157,18 @@ function commitMove(from,to){
     wins++;write(WINS_KEY,String(wins));
     say('Поздравляем! Все карты собраны.');
   }else say('Ход выполнен.');
-  store();paint();return true;
+  store();paint();
+  animateFromPrevious(previous,moving);
+  return true;
 }
 function draw(){
   if(game.won)return;
   if(!game.stock.length&&!game.waste.length){say('Колода пуста.');return;}
+  const origin=$('stock').getBoundingClientRect();
   remember();dealStock(game);selected=null;hintFrom=null;
   say(game.stock.length||game.waste.length?'Карта открыта.':'Колода пуста.');
   store();paint();
+  if(game.waste.length)animateFromPrevious(new Map(),[game.waste[game.waste.length-1]],origin);
 }
 function automatic(from){
   if(!from)return false;
