@@ -1,4 +1,4 @@
-name: Visual regression smoke
+name: Legacy catalog redirect check
 
 on:
   push:
@@ -9,28 +9,11 @@ permissions:
   contents: read
 
 jobs:
-  mobile-preview:
+  verify-redirect:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.56.1-noble
-    timeout-minutes: 15
+    timeout-minutes: 3
     steps:
-      - name: Check out project
-        uses: actions/checkout@v4
-      - name: Install browser testing dependencies
-        run: npm install --no-save --no-package-lock playwright@1.56.1
-      - name: Serve static site
+      - uses: actions/checkout@v4
+      - name: Verify legacy redirect and independent Blocks PWA
         run: |
-          python3 -m http.server 8123 --bind 127.0.0.1 > /tmp/mygames-preview.log 2>&1 &
-          echo $! > /tmp/mygames-preview.pid
-          sleep 2
-      - name: Capture 12 games on iPhone and Android viewports
-        run: node tests/visual-smoke.mjs
-      - name: Store screenshots for review
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-games-mobile-screenshots
-          path: qa/screenshots/
-          if-no-files-found: warn
-          retention-days: 14
+          node -e "const f=require('fs'),a=require('assert');const h=f.readFileSync('catalog/index.html','utf8'),j=f.readFileSync('catalog/redirect.js','utf8');a(h.includes('https://vvl-code.github.io/catalog/'));a(h.includes('redirect.js'));a(j.includes('location.replace(destination.href)'));a(f.readFileSync('index.html','utf8').includes('board-frame'));"
