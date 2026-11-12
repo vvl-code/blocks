@@ -34,7 +34,9 @@ for (const [name, viewport] of [
   try {
     await page.goto(origin+'/catalog/', {waitUntil:'domcontentloaded',timeout:20000});
     await page.waitForFunction(() => document.querySelectorAll('.game-card.compact-card[data-game]').length === 12, {timeout:12000});
-    assert.equal(await page.locator('.game-card.compact-card[data-game]').count(),12,'all games must use compact cards');
+    const cards=await page.locator('.game-card.compact-card[data-game]').evaluateAll(elements=>elements.map(el=>el.dataset.game));
+    console.log(name+' cards: '+JSON.stringify(cards));
+    assert.equal(cards.length,12,'all games must use compact cards: '+JSON.stringify(cards));
     for (const id of ids) assert.equal(await page.locator('.game-card[data-game="'+id+'"]').count(),1,'game card '+id);
     const icon=page.locator('.blocks-card-icon');
     await icon.waitFor();
